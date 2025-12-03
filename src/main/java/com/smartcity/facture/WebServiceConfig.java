@@ -19,7 +19,7 @@ public class WebServiceConfig {
     @Bean
     public Endpoint ClientEndpoint() {
         Endpoint endpoint = Endpoint.create(clientService);
-        endpoint.publish("http://localhost:8080/");
+        endpoint.publish("http://localhost:8080/services/Client");
         return endpoint;
         //http://localhost:8080/services/Client?wsdl
     }

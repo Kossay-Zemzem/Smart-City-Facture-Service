@@ -1,23 +1,34 @@
 package com.smartcity.facture.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@XmlRootElement(name = "client")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "factures")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
+    private String refClient;
     private String nom;
-    private String adresse;
+    private boolean isBusiness;
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @XmlTransient
+    private Set<Facture> factures=new HashSet<>();
 }
