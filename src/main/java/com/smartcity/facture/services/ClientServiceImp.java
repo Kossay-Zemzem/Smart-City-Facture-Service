@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@WebService(serviceName = "ClientService")
 public class ClientServiceImp {
 
     private final ClientRepository clientRepo;
@@ -20,12 +19,10 @@ public class ClientServiceImp {
         this.clientRepo = clientRepo;
     }
 
-    @WebMethod(operationName = "getClientCount")
     public long countClients() {
         return clientRepo.count();
     }
 
-    @WebMethod(operationName = "getAllClients")
     public Client[] getAllClients() {
         List<Client> list= clientRepo.findAll();
         System.out.println("Liste des clients: "+list);
