@@ -1,24 +1,21 @@
 package com.smartcity.facture.services;
 
-import com.smartcity.facture.models.Facture;
-import com.smartcity.facture.repository.ClientRepository;
-import com.smartcity.facture.repository.FactureRepository;
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebService;
+import com.smartcity.facture.models.FactureElect;
+import com.smartcity.facture.repository.FactureElectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class FactureService {
-    private final FactureRepository factureRepo ;
+    private final FactureElectRepository factureRepo ;
 
     @Autowired
-    public FactureService(FactureRepository factureRepo) {
+    public FactureService(FactureElectRepository factureRepo) {
         this.factureRepo = factureRepo;
     }
 
 
-    public Facture[] getAllFactures() {
-        return factureRepo.findAll().toArray(new Facture[0]);
+    public FactureElect[] getAllFactures() {
+        return factureRepo.findAll().toArray(new FactureElect[0]);
     }
 }

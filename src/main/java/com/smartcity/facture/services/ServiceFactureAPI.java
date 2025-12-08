@@ -1,13 +1,11 @@
 package com.smartcity.facture.services;
 
 import com.smartcity.facture.models.Client;
-import com.smartcity.facture.models.Facture;
+import com.smartcity.facture.models.FactureElect;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @WebService(serviceName = "ServiceFactureAPI")
@@ -23,7 +21,7 @@ public class ServiceFactureAPI {
     }
 
     @WebMethod(operationName = "getAllFactures")
-    public Facture[] getAllFactures() {
+    public FactureElect[] getAllFactures() {
         return factureService.getAllFactures();
     }
 
