@@ -21,9 +21,9 @@ public class WebServiceConfig {
     @Bean
     public Endpoint ClientEndpoint() {
         Endpoint endpoint = Endpoint.create(serviceFactureAPI);
-        endpoint.publish("http://localhost:8080/services/API");
+        endpoint.publish("http://localhost:8082/services/API");
         return endpoint;
-        //http://localhost:8080/services/API?wsdl
+        //http://localhost:8082/services/API?wsdl
     }
 
 //    @Bean
