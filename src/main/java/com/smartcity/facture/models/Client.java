@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = "factures")
+@ToString(exclude = {"factureElects","factureEaus","factureParkings"})
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
