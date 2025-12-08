@@ -1,6 +1,8 @@
 package com.smartcity.facture;
 
 import com.smartcity.facture.services.ClientServiceImp;
+import com.smartcity.facture.services.FactureService;
+import com.smartcity.facture.services.ServiceFactureAPI;
 import jakarta.xml.ws.Endpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,20 +11,35 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebServiceConfig {
 
-    private ClientServiceImp clientService;
+    private ServiceFactureAPI serviceFactureAPI;
 
     @Autowired
-    WebServiceConfig(ClientServiceImp clientService){
-        this.clientService = clientService;
+    WebServiceConfig(ServiceFactureAPI serviceFactureAPI){
+        this.serviceFactureAPI = serviceFactureAPI;
     }
 
     @Bean
     public Endpoint ClientEndpoint() {
-        Endpoint endpoint = Endpoint.create(clientService);
-        endpoint.publish("http://localhost:8080/");
+        Endpoint endpoint = Endpoint.create(serviceFactureAPI);
+        endpoint.publish("http://localhost:8082/services/API");
         return endpoint;
-        //http://localhost:8080/services/Client?wsdl
+        //http://localhost:8082/services/API?wsdl
     }
+
+//    @Bean
+//    public Endpoint ClientEndpoint() {
+//        Endpoint endpoint = Endpoint.create(clientService);
+//        endpoint.publish("http://localhost:8080/services/Client");
+//        return endpoint;
+//        //http://localhost:8080/services/Client?wsdl
+//    }
+//    @Bean
+//    public Endpoint FactureEndpoint(FactureService factureService) {
+//        Endpoint endpoint = Endpoint.create(factureService);
+//        endpoint.publish("http://localhost:8080/services/Facture");
+//        return endpoint;
+//        //http://localhost:8080/services/Facture?wsdl
+//    }
 
     // Other web service endpoints can be configured similarly
     /*
