@@ -19,7 +19,7 @@ import java.util.Date;
 public class FactureDTO {
     private Integer id;
     private String refFacture;
-    private String type; //TODO add enum for type
+    private TypeFacture type; // Changed from String to TypeFacture
     private Double montantHT;
     private Double montantTTC;
     private Date dateEmission;

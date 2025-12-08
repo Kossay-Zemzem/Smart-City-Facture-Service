@@ -1,9 +1,6 @@
 package com.smartcity.facture.services;
 
-import com.smartcity.facture.models.FactureDTO;
-import com.smartcity.facture.models.FactureEau;
-import com.smartcity.facture.models.FactureElect;
-import com.smartcity.facture.models.FactureParking;
+import com.smartcity.facture.models.*;
 import com.smartcity.facture.repository.ClientRepository;
 import com.smartcity.facture.repository.FactureEauRepository;
 import com.smartcity.facture.repository.FactureElectRepository;
@@ -36,17 +33,17 @@ public class FactureService {
 //        return factureRepo.findAll().toArray(new FactureElect[0]);
 //    }
 
-    public List<FactureDTO> getAllFacturesByType(String type) {
-        switch (type.toUpperCase()) {
-            case "ELECT":
+    public List<FactureDTO> getAllFacturesByType(TypeFacture type) {
+        switch (type) {
+            case ELECT:
                 return factureElectRepository.findAll().stream()
                         .map(this::convertElectToDTO)
                         .collect(Collectors.toList());
-            case "EAU":
+            case EAU:
                 return factureEauRepository.findAll().stream()
                         .map(this::convertEauToDTO)
                         .collect(Collectors.toList());
-            case "PARKING":
+            case PARKING:
                 return factureParkingRepository.findAll().stream()
                         .map(this::convertParkingToDTO)
                         .collect(Collectors.toList());
@@ -59,7 +56,7 @@ public class FactureService {
         FactureDTO dto = new FactureDTO();
         dto.setId(facture.getId());
         dto.setRefFacture(facture.getRefFacture());
-        dto.setType("ELECT");
+        dto.setType(TypeFacture.ELECT); // Using enum
         dto.setPrixUnitaire(facture.getPrixUnitaire());
         dto.setConsomationTotal(facture.getConsomationTotal());
         dto.setPrixServiceSuppl(facture.getPrixServiceSuppl()); // Only for electricity
@@ -80,7 +77,7 @@ public class FactureService {
         FactureDTO dto = new FactureDTO();
         dto.setId(facture.getId());
         dto.setRefFacture(facture.getRefFacture());
-        dto.setType("EAU");
+        dto.setType(TypeFacture.EAU); // Using enum
         dto.setPrixUnitaire(facture.getPrixUnitaire());
         dto.setConsomationTotal(facture.getConsomationTotal());
         // Note: prixServiceSuppl is NOT set - will be excluded from response
@@ -101,7 +98,7 @@ public class FactureService {
         FactureDTO dto = new FactureDTO();
         dto.setId(facture.getId());
         dto.setRefFacture(facture.getRefFacture());
-        dto.setType("PARKING");
+        dto.setType(TypeFacture.PARKING); // Using enum
         // Note: no consumption or price fields set - will be excluded from response
 
         if (facture.getClient() != null) {

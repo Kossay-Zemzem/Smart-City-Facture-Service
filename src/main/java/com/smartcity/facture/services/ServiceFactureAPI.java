@@ -3,6 +3,7 @@ package com.smartcity.facture.services;
 import com.smartcity.facture.models.Client;
 import com.smartcity.facture.models.FactureDTO;
 import com.smartcity.facture.models.FactureElect;
+import com.smartcity.facture.models.TypeFacture;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -30,7 +31,7 @@ public class ServiceFactureAPI {
 //    }
 
     @WebMethod(operationName = "getAllFactureParType")
-    public List<FactureDTO> getAllFactureParType(@WebParam(name = "type") String type) {
+    public List<FactureDTO> getAllFactureParType(@WebParam(name = "type") TypeFacture type) {
         return factureService.getAllFacturesByType(type);
     }
 
