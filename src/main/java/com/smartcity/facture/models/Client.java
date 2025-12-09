@@ -19,7 +19,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(exclude = "factures")
+@ToString(exclude = {"factureElects","factureEaus","factureParkings"})
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -30,5 +30,13 @@ public class Client {
 
     @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @XmlTransient
-    private Set<Facture> factures=new HashSet<>();
+    private Set<FactureElect> factureElects =new HashSet<>();
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @XmlTransient
+    private Set<FactureEau> factureEaus = new HashSet<>() ;
+
+    @OneToMany(mappedBy = "client",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @XmlTransient
+    private Set<FactureParking> factureParkings = new HashSet<>() ;
 }

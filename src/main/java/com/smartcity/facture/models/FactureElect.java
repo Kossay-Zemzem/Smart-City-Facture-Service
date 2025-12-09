@@ -8,19 +8,20 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import lombok.*;
 
 import java.util.Date;
-@XmlRootElement(name = "facture")
+@XmlRootElement(name = "factureElectricite")
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-public class Facture { //TODO turn this into an abstract class and extend it for different facture types
+public class FactureElect {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String refFacture;
     private Double prixUnitaire; //in Dinars par kWh
+    private Double prixServiceSuppl ; //service tele et radio
     private Integer consomationTotal; //in kWh
     private Double montantHT;
     private Double montantTTC;
