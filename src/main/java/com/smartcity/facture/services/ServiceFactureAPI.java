@@ -35,8 +35,6 @@ public class ServiceFactureAPI {
         return factureService.getAllFacturesByType(type);
     }
 
-
-
     @WebMethod(operationName = "getClientCount")
     public long countClients() {
         return clientService.countClients();
@@ -46,5 +44,8 @@ public class ServiceFactureAPI {
     public Client[] getAllClients() {
         return clientService.getAllClients();
     }
+
+//    @WebMethod(operationName = "generateFacture")
+//    public
 
 }
