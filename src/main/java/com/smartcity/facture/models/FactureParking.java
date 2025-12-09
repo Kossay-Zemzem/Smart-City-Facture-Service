@@ -24,7 +24,15 @@ public class FactureParking {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String refFacture;
-    //TODO add fields depending on parking service
+    //Spot details
+    private String codeSpot; // e.g., "A1", "B2"
+    @Enumerated(EnumType.STRING)
+    private ParkingSpotType typeSpot; // e.g., "normal", "VIP"
+    private boolean isOccupied;
+    //---
+    private String etageLabel;
+    private Integer durationInHours;
+    private Double prixTTC;
     @XmlTransient
     @ManyToOne
     private Client client;
