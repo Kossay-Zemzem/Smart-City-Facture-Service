@@ -1,7 +1,5 @@
 package com.smartcity.facture;
 
-import com.smartcity.facture.services.ClientServiceImp;
-import com.smartcity.facture.services.FactureService;
 import com.smartcity.facture.services.ServiceFactureAPI;
 import jakarta.xml.ws.Endpoint;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -30,4 +30,11 @@ public class FactureDTO {
     private String clientRef;
     private String clientNom;
 
+    //parking specific fields
+    private String codeSpot;
+    private ParkingSpotType typeSpot; // "VIP" or "NORMAL"
+    private boolean isOccupied;
+    private String etageLabel;
+    private Integer durationInHours;
+
 }

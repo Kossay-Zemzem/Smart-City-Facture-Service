@@ -13,16 +13,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class FactureService {
-    private final ClientRepository clientRepository;
+    private final ClientService clientService;
     private final FactureElectRepository factureElectRepository;
     private final FactureParkingRepository factureParkingRepository;
     private final FactureEauRepository factureEauRepository;
 
 
     @Autowired
-    public FactureService(ClientRepository clientRepository, FactureElectRepository factureElectRepository
+    public FactureService(ClientRepository clientRepository, ClientService clientService, FactureElectRepository factureElectRepository
             , FactureParkingRepository factureParkingRepository, FactureEauRepository factureEauRepository) {
-        this.clientRepository = clientRepository;
+        this.clientService = clientService;
         this.factureElectRepository = factureElectRepository;
         this.factureParkingRepository = factureParkingRepository;
         this.factureEauRepository = factureEauRepository;
@@ -96,16 +96,49 @@ public class FactureService {
 
     private FactureDTO convertParkingToDTO(FactureParking facture) {
         FactureDTO dto = new FactureDTO();
+        dto.setType(TypeFacture.PARKING); // Using enum
+
+        // Core Facture fields
         dto.setId(facture.getId());
         dto.setRefFacture(facture.getRefFacture());
-        dto.setType(TypeFacture.PARKING); // Using enum
-        // Note: no consumption or price fields set - will be excluded from response
-
+        // Client details (existing logic)
         if (facture.getClient() != null) {
             dto.setClientRef(facture.getClient().getRefClient());
             dto.setClientNom(facture.getClient().getNom());
         }
 
+        // New FactureParking fields
+        dto.setCodeSpot(facture.getCodeSpot());
+        dto.setTypeSpot(facture.getTypeSpot());
+        dto.setOccupied(facture.isOccupied());
+        dto.setEtageLabel(facture.getEtageLabel());
+        dto.setDurationInHours(facture.getDurationInHours());
+
+        dto.setMontantTTC(facture.getPrixTTC());
+
         return dto;
+    }
+
+    //Generation de facture de parking
+    public FactureParking generateFactureParking(FactureRequest request) {
+        // Find or create client
+        Client client = clientService.findClientByRef(request.getRefClient());
+        if (client == null) {
+            //TODO LOG a WARN here uing Log4J
+            System.out.println("Client not found: " + request.getRefClient());
+            return null; // Or throw an exception
+        }
+        // Create facture
+        FactureParking facture = new FactureParking();
+        facture.setRefFacture(request.getRefFacture());
+        facture.setCodeSpot(request.getCodeSpot());
+        facture.setTypeSpot(ParkingSpotType.valueOf(request.getTypeSpot()));
+        facture.setOccupied(request.isOccupied());
+        facture.setEtageLabel(request.getEtageLabel());
+        facture.setDurationInHours(request.getDurationInHours());
+        facture.setPrixTTC(request.getPrixTTC());
+        facture.setClient(client);
+        // Save and return
+        return factureParkingRepository.save(facture);
     }
 }

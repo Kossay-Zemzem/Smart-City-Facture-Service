@@ -1,9 +1,6 @@
 package com.smartcity.facture.services;
 
-import com.smartcity.facture.models.Client;
-import com.smartcity.facture.models.FactureDTO;
-import com.smartcity.facture.models.FactureElect;
-import com.smartcity.facture.models.TypeFacture;
+import com.smartcity.facture.models.*;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebService;
@@ -17,10 +14,10 @@ import java.util.List;
 public class ServiceFactureAPI {
 
     private final FactureService factureService;
-    private final ClientServiceImp clientService;
+    private final ClientService clientService;
 
     @Autowired
-    public ServiceFactureAPI(FactureService factureService, ClientServiceImp clientService) {
+    public ServiceFactureAPI(FactureService factureService, ClientService clientService) {
         this.factureService = factureService;
         this.clientService = clientService;
     }
@@ -45,7 +42,12 @@ public class ServiceFactureAPI {
         return clientService.getAllClients();
     }
 
-//    @WebMethod(operationName = "generateFacture")
-//    public
+    //Generation de facture de parking
+    @WebMethod(operationName = "generateFacture")
+    public FactureParking generateFacture(
+            @WebParam(name = "factureRequest") FactureRequest request
+    ) {
+        return factureService.generateFactureParking(request);
+    }
 
 }
