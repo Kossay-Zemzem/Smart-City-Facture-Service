@@ -24,19 +24,26 @@ public class DataInit {
         return args -> {
             // Create Client 1 - Individual
             Client client1 = new Client();
-            client1.setRefClient("CLT-2024-001");
+            client1.setRefClient("CLIENT-001");
             client1.setNom("Ahmed Ben Salah");
             client1.setBusiness(false);
 
             // Create Client 2 - Business
             Client client2 = new Client();
-            client2.setRefClient("CLT-2024-002");
+            client2.setRefClient("CLIENT-002");
             client2.setNom("Société TechnoServices SARL");
             client2.setBusiness(true);
+
+            //Create client 3 - Individual
+            Client client3 = new Client();
+            client3.setRefClient("CLIENT-003");
+            client3.setNom("Meriem Bouzid");
+            client3.setBusiness(false);
 
             // Save clients first
             clientRepository.save(client1);
             clientRepository.save(client2);
+            clientRepository.save(client3);
 
             // Create Electricity Invoices for Client 1
             FactureElect elect1 = new FactureElect();
@@ -108,7 +115,7 @@ public class DataInit {
             // Create Parking Invoices for Client 1
             FactureParking parking1 = new FactureParking();
             parking1.setRefFacture("PARK-2024-001");
-            parking1.setClient(client1);
+            parking1.setClient(client3);
 
             FactureParking parking2 = new FactureParking();
             parking2.setRefFacture("PARK-2024-002");
@@ -117,7 +124,7 @@ public class DataInit {
             // Create Parking Invoices for Client 2
             FactureParking parking3 = new FactureParking();
             parking3.setRefFacture("PARK-2024-003");
-            parking3.setClient(client2);
+            parking3.setClient(client3);
 
             // Save all invoices
             factureElectRepository.save(elect1);
