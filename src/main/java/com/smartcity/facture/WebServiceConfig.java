@@ -3,6 +3,7 @@ package com.smartcity.facture;
 import com.smartcity.facture.services.ServiceFactureAPI;
 import jakarta.xml.ws.Endpoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,11 +18,10 @@ public class WebServiceConfig {
     }
 
     @Bean
-    public Endpoint ClientEndpoint() {
+    public Endpoint ClientEndpoint(@Value("${soap.endpoint.address}") String address) {
         Endpoint endpoint = Endpoint.create(serviceFactureAPI);
-        endpoint.publish("http://localhost:8082/services/API");
+        endpoint.publish(address);
         return endpoint;
-        //http://localhost:8082/services/API?wsdl
     }
 
 //    @Bean
